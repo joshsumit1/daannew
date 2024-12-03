@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="text-align: center; margin-top: 20px;">
+    <!-- Add an illustration -->
+    <img src="/static/illustration.png" alt="Join Us" style="width: 50%; max-width: 300px; animation: fadeIn 1.5s ease;">
+</div>
+<h1 style="margin-top: 20px;">Register Your NGO</h1>
+<p>Join us in making a difference!</p>
+
+<form method="post" enctype="multipart/form-data">
+    <label for="name">NGO Name</label>
+    <input type="text" name="name" id="name" placeholder="Enter your NGO's name" required>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" placeholder="Create a password" required>
+
+    <label for="certificate">Upload Certificate (PDF, JPG, PNG):</label>
+    <input type="file" name="certificate" id="certificate" required>
+
+    <button type="submit">Register</button>
+</form>
+{% endblock %}
+
+

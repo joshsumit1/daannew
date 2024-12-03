@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Messages{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Messages</h2>
+
+    <!-- Send Message -->
+    <form method="post" class="mb-4">
+        <div class="form-group">
+            <label for="sender_id">Sender:</label>
+            <select name="sender_id" id="sender_id" class="form-control">
+                {% for ngo in ngos %}
+                    <option value="{{ ngo.id }}">{{ ngo.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="receiver_id">Receiver:</label>
+            <select name="receiver_id" id="receiver_id" class="form-control">
+                {% for ngo in ngos %}
+                    <option value="{{ ngo.id }}">{{ ngo.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="content">Message:</label>
+            <textarea name="content" id="content" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Send</button>
+    </form>
+
+    <!-- List Messages -->
+    <h4>Inbox</h4>
+    <ul>
+        {% for message in messages %}
+            <li>
+                <strong>From:</strong> {{ message.sender.name }}
+                <strong>To:</strong> {{ message.receiver.name }}
+                <p>{{ message.content }}</p>
+                <small>{{ message.timestamp }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

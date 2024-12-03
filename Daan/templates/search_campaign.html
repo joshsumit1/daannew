@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search Campaigns</h1>
+<form method="post">
+    <input type="text" name="query" placeholder="Search by title" required>
+    <button type="submit">Search</button>
+</form>
+<h2>Results:</h2>
+<ul>
+    {% for campaign in campaigns %}
+        <li>{{ campaign.title }}</li>
+    {% else %}
+        <li>No results found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

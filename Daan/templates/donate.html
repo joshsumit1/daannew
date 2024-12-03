@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate</title>
+</head>
+<body>
+    <h2>Make a Donation</h2>
+
+    <form id="payment-form" method="POST" action="{{ url_for('process_payment') }}">
+        <input type="hidden" name="donor_id" value="{{ donor_id }}">
+        <input type="hidden" name="amount" value="{{ amount }}">
+
+        <div id="card-element"></div>
+        <button id="submit">Submit Payment</button>
+    </form>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe('pk_test_yourPublishableKeyHere');  // Replace with your Stripe Publishable Key
+        var clientSecret = "{{ client_secret }}";
+
+        var elements = stripe.elements();
+        var card = elements.create('card');
+        card.mount('#card-element');
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            stripe.confirmCardPayment(clientSecret, {
+                payment_method: { card: card }
+            }).then(function(result) {
+                if (result.error) {
+                    alert('Payment failed: ' + result.error.message);
+                } else {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

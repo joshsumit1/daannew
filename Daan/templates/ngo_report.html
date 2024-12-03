@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}{{ ngo.name }} Report{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ ngo.name }} - Report</h2>
+    <p>Email: {{ ngo.email }}</p>
+    <p>Total Donations: ${{ ngo.total_donations }}</p>
+    <p>Active Campaigns: {{ ngo.active_campaigns }}</p>
+    <p>Total Donors: {{ ngo.total_donors }}</p>
+    <p>Certificates Uploaded: {{ ngo.certificates_uploaded }}</p>
+</div>
+{% endblock %}

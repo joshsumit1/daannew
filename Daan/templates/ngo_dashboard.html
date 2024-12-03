@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+NGO Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Welcome Card -->
+        <div class="col-md-12">
+            <div class="card text-white bg-primary mb-4">
+                <div class="card-body">
+                    {% if selected_ngo %}
+                        <h4 class="card-title">Welcome, {{ selected_ngo.name }}</h4>
+                        <p class="card-text">Here's an overview of your NGO's performance!</p>
+                    {% else %}
+                        <h4 class="card-title">Welcome to the NGO Dashboard</h4>
+                        <p class="card-text">Please select an NGO to view its performance.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        {% if selected_ngo %}
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Donations</h5>
+                            <p class="card-text">$ {{ total_donations }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Active Campaigns</h5>
+                            <p class="card-text">{{ active_campaigns }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Donors</h5>
+                            <p class="card-text">{{ total_donors }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Certificates Uploaded</h5>
+                            <p class="card-text">{{ certificates_uploaded }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-4">
+                <form method="get" action="{{ url_for('ngo_dashboard') }}" class="mb-4">
+                    <input type="text" name="search" value="{{ search_query }}" placeholder="Search for NGOs..." class="form-control">
+                    <button type="submit" class="btn btn-primary mt-2">Search</button>
+                </form>
+            
+                <!-- Display Search Results -->
+                <h5>Search Results:</h5>
+                <ul>
+                    {% for ngo in ngos %}
+                        <li>
+                            <strong>{{ ngo.name }}</strong> - {{ ngo.email }}
+                            <a href="{{ url_for('ngo_report', ngo_id=ngo.id) }}" class="btn btn-sm btn-info">View Report</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p class="text-center">Select an NGO to view statistics.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- NGO List -->
+<ul>
+    {% for ngo in ngos %}
+        <li>{{ ngo.name }} - {{ ngo.email }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

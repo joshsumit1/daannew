@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard">
+    <h1>Welcome, {{ donor_name }}</h1>
+
+    <!-- Profile Section -->
+    <div class="profile-section">
+        <div class="profile-icon">
+            <img src="{{ donor_photo_url }}" alt="Profile Photo" class="profile-img">
+        </div>
+        <h2>Your Profile</h2>
+        <form action="{{ url_for('update_profile') }}" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="donor_id" value="{{ donor.id }}">
+            <input type="text" name="phone" value="{{ donor.phone }}">
+            <input type="file" name="photo">
+            <button type="submit">Update Profile</button>
+        </form>
+        
+    </div>
+
+    <!-- Add Funds Section -->
+    <div class="funds-section">
+        <h2>Donate Funds</h2>
+        <form method="post" action="/donate">
+            <div class="form-group">
+                <label for="amount">Enter Amount to Donate:</label>
+                <input type="number" name="amount" id="amount" placeholder="Enter amount in USD" required>
+            </div>
+            <button type="submit">Add Funds</button>
+        </form>
+    </div>
+
+    <!-- Donation History -->
+    <div class="donation-history">
+        <h2>Your Donation History</h2>
+        <ul>
+            {% for donation in donations %}
+                <li>${{ donation.amount }} donated on {{ donation.date }}</li>
+            {% else %}
+                <li>No donations made yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
