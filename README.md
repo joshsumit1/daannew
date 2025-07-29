@@ -41,20 +41,14 @@ git clone https://github.com/joshsumit1/daan-project.git
 cd daan-project
 2. Create a Virtual Environment
 bash
-Copy
-Edit
 python3 -m venv venv
 source venv/bin/activate   # On Windows: venv\Scripts\activate
 3. Install Dependencies
 bash
-Copy
-Edit
 pip install -r requirements.txt
 Make sure your requirements.txt includes:
 
 nginx
-Copy
-Edit
 Flask
 Flask_SQLAlchemy
 stripe
@@ -63,15 +57,11 @@ Werkzeug
 Create a .env file or replace directly in app.py:
 
 python
-Copy
-Edit
 stripe.api_key = 'sk_test_yourSecretKeyHere'
 🔒 Replace with your real Stripe secret key.
 
 5. Run the App
 bash
-Copy
-Edit
 python app.py
 Visit: http://localhost:5000
 
